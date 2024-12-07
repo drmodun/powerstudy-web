@@ -4,7 +4,7 @@ import {
   ScrollRestoration,
   createRootRoute,
 } from "@tanstack/react-router";
-import "@/styles/globals.css";
+import appCSS from "@/styles/globals.css?url";
 import { Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
 
@@ -20,6 +20,12 @@ export const Route = createRootRoute({
       },
       {
         title: "TanStack Start Starter",
+      },
+    ],
+    links: [
+      {
+        rel: "stylesheet",
+        href: appCSS,
       },
     ],
   }),
