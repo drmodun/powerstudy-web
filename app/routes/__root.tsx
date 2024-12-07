@@ -4,6 +4,7 @@ import {
   ScrollRestoration,
   createRootRoute,
 } from "@tanstack/react-router";
+import "@/styles/globals.css";
 import { Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
 

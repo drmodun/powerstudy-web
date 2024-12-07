@@ -1,23 +1,41 @@
 {
-    "include": ["**/*.ts", "**/*.tsx"],
     "compilerOptions": {
-      "strict": true,
+      /* Base Options: */
       "esModuleInterop": true,
-      "jsx": "react-jsx",
+      "skipLibCheck": true,
+      "target": "es2022",
+      "allowJs": true,
+      "resolveJsonModule": true,
+      "moduleDetection": "force",
+      "isolatedModules": true,
+  
+      /* Strictness */
+      "strict": true,
+      "noUncheckedIndexedAccess": true,
+      "checkJs": true,
+  
+      /* Bundled projects */
+      "lib": ["dom", "dom.iterable", "ES2022"],
+      "noEmit": true,
       "module": "ESNext",
       "moduleResolution": "Bundler",
-      "lib": ["DOM", "DOM.Iterable", "ES2022"],
-      "isolatedModules": true,
-      "resolveJsonModule": true,
-      "skipLibCheck": true,
-      "target": "ES2022",
-      "allowJs": true,
-      "forceConsistentCasingInFileNames": true,
+      "jsx": "react-jsx",
+      "plugins": [{ "name": "next" }],
+      "incremental": true,
+  
+      /* Path Aliases */
       "baseUrl": ".",
       "paths": {
-        "~/*": ["app/*"]
+        "@/*": ["./app/*"]
       },
-      "noEmit": true
-    }
+      "types": ["vite/client"]
+    },
+    "include": [
+      ".eslintrc.cjs",
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.cjs",
+      "**/*.js",
+    ],
+    "exclude": ["node_modules"]
   }
-  
