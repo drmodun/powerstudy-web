@@ -6,9 +6,8 @@ export const createUserSchema = z
     name: z.string().min(3, { message: "Name must be at least 3 characters" }),
     password: z
       .string()
-      .min(8, { message: "Password must be at least 8 characters" })
       .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])[A-Za-z\d#?!@$%^&*-]{8,}$/,
         {
           message:
             "Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character",

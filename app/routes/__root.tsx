@@ -8,6 +8,8 @@ import appCSS from "@/styles/globals.css?url";
 import { Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import { Toaster } from "react-hot-toast";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -43,13 +45,18 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
+  const queryClient = new QueryClient(); //TODO: check if this is needed / causes perfomance issues
+
   return (
     <html>
       <head>
         <Meta />
       </head>
       <body>
-        {children}
+        <Toaster />
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

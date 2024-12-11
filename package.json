@@ -7,11 +7,13 @@
   "author": "drmodun <jan.modun.st@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "vinxi dev",
+    "dev": "npx dotenv vinxi dev",
     "build": "vinxi build",
-    "start": "vinxi start"
+    "start": "npx dotenv vinxi start"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
+    "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@tanstack/react-query": "^5.62.7",
     "@tanstack/react-router": "^1.86.1",
@@ -20,9 +22,11 @@
     "axios": "^1.7.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^16.4.7",
     "lucide-react": "^0.468.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.0",
     "react-hot-toast": "^2.4.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",

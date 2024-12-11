@@ -1,11 +1,11 @@
-import { baseApi } from "../baseApi";
+import { baseApi, ErrorResponse } from "../baseApi";
 import { CreateUserModel } from "@/types/user";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { ActionResponse } from "@/types/base";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-export const createUser = (request: CreateUserModel) =>
+export const createUser = (request: Omit<CreateUserModel, "confirmPassword">) =>
   baseApi.post<CreateUserModel, AxiosResponse<ActionResponse>>(
     "/users",
     request
@@ -15,10 +15,13 @@ export const useCreateUser = () => {
   return useMutation({
     mutationFn: createUser,
     onSuccess: () => {
-      toast.success("User created successfully!");
+      toast.success("Redirecting to login page");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
     },
-    onError: (error) => {
-      toast.error(error.message || "Error creating user");
+    onError: (error: AxiosError<ErrorResponse>) => {
+      toast.error(error.response?.data.message || "Error logging in");
     },
   });
 };
