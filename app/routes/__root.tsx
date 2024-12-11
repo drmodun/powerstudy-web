@@ -7,6 +7,7 @@ import {
 import appCSS from "@/styles/globals.css?url";
 import { Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
+import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -36,6 +37,7 @@ function RootComponent() {
   return (
     <RootDocument>
       <Outlet />
+      <TanStackRouterDevtools />
     </RootDocument>
   );
 }
