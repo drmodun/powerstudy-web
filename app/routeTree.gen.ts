@@ -13,7 +13,9 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as SignupImport } from './routes/signup'
 import { Route as LoginImport } from './routes/login'
+import { Route as KnowledgeBasesImport } from './routes/knowledge-bases'
 import { Route as IndexImport } from './routes/index'
+import { Route as KnowledgeBasesCreateImport } from './routes/knowledge-bases.create'
 
 // Create/Update Routes
 
@@ -29,10 +31,22 @@ const LoginRoute = LoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const KnowledgeBasesRoute = KnowledgeBasesImport.update({
+  id: '/knowledge-bases',
+  path: '/knowledge-bases',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const KnowledgeBasesCreateRoute = KnowledgeBasesCreateImport.update({
+  id: '/create',
+  path: '/create',
+  getParentRoute: () => KnowledgeBasesRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -44,6 +58,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/knowledge-bases': {
+      id: '/knowledge-bases'
+      path: '/knowledge-bases'
+      fullPath: '/knowledge-bases'
+      preLoaderRoute: typeof KnowledgeBasesImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -60,47 +81,90 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupImport
       parentRoute: typeof rootRoute
     }
+    '/knowledge-bases/create': {
+      id: '/knowledge-bases/create'
+      path: '/create'
+      fullPath: '/knowledge-bases/create'
+      preLoaderRoute: typeof KnowledgeBasesCreateImport
+      parentRoute: typeof KnowledgeBasesImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface KnowledgeBasesRouteChildren {
+  KnowledgeBasesCreateRoute: typeof KnowledgeBasesCreateRoute
+}
+
+const KnowledgeBasesRouteChildren: KnowledgeBasesRouteChildren = {
+  KnowledgeBasesCreateRoute: KnowledgeBasesCreateRoute,
+}
+
+const KnowledgeBasesRouteWithChildren = KnowledgeBasesRoute._addFileChildren(
+  KnowledgeBasesRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/knowledge-bases': typeof KnowledgeBasesRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/knowledge-bases/create': typeof KnowledgeBasesCreateRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/knowledge-bases': typeof KnowledgeBasesRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/knowledge-bases/create': typeof KnowledgeBasesCreateRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/knowledge-bases': typeof KnowledgeBasesRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/knowledge-bases/create': typeof KnowledgeBasesCreateRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/signup'
+  fullPaths:
+    | '/'
+    | '/knowledge-bases'
+    | '/login'
+    | '/signup'
+    | '/knowledge-bases/create'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup'
-  id: '__root__' | '/' | '/login' | '/signup'
+  to:
+    | '/'
+    | '/knowledge-bases'
+    | '/login'
+    | '/signup'
+    | '/knowledge-bases/create'
+  id:
+    | '__root__'
+    | '/'
+    | '/knowledge-bases'
+    | '/login'
+    | '/signup'
+    | '/knowledge-bases/create'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  KnowledgeBasesRoute: typeof KnowledgeBasesRouteWithChildren
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  KnowledgeBasesRoute: KnowledgeBasesRouteWithChildren,
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
 }
@@ -116,6 +180,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/knowledge-bases",
         "/login",
         "/signup"
       ]
@@ -123,11 +188,21 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.tsx"
     },
+    "/knowledge-bases": {
+      "filePath": "knowledge-bases.tsx",
+      "children": [
+        "/knowledge-bases/create"
+      ]
+    },
     "/login": {
       "filePath": "login.tsx"
     },
     "/signup": {
       "filePath": "signup.tsx"
+    },
+    "/knowledge-bases/create": {
+      "filePath": "knowledge-bases.create.tsx",
+      "parent": "/knowledge-bases"
     }
   }
 }
