@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Button } from '@/components/ui/button'
+import { createFileRoute, Link } from '@tanstack/react-router'
 
-export const Route = createFileRoute("/knowledge-bases")({
+export const Route = createFileRoute('/knowledge-bases/')({
   component: KnowledgeBases,
-});
+})
 
 export default function KnowledgeBases() {
   return (
@@ -14,7 +14,7 @@ export default function KnowledgeBases() {
           <Link to="/knowledge-bases/create">Create New</Link>
         </Button>
       </div>
-      
+
       <div className="flex flex-col items-center justify-center space-y-4 p-12 border-2 border-dashed rounded-lg">
         <div className="text-2xl font-semibold text-gray-500">
           🚧 Under Construction 🚧
@@ -24,5 +24,5 @@ export default function KnowledgeBases() {
         </p>
       </div>
     </div>
-  );
+  )
 }

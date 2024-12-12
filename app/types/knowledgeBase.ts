@@ -8,11 +8,25 @@ export enum difficulty {
   UNSPECIFIED = "unspecified",
 }
 
+export const difficultyLabels: Record<difficulty, string> = {
+  [difficulty.ELEMENTARY]: "Elementary",
+  [difficulty.MIDDLE]: "Middle School",
+  [difficulty.HIGH]: "High School",
+  [difficulty.COLLEGE]: "College",
+  [difficulty.UNSPECIFIED]: "Unspecified",
+};
+
 export enum levelOfDetail {
   LOW = "low",
   MEDIUM = "medium",
   HIGH = "high",
 }
+
+export const levelOfDetailLabels: Record<levelOfDetail, string> = {
+  [levelOfDetail.LOW]: "Basic",
+  [levelOfDetail.MEDIUM]: "Intermediate",
+  [levelOfDetail.HIGH]: "Advanced",
+};
 
 export enum subject {
   MATH = "math",
@@ -27,7 +41,24 @@ export enum subject {
   COMPUTER_SCIENCE = "computer_science",
   PHYSICS = "physics",
   PSYCHOLOGY = "psychology",
+  OTHER = "other",
 }
+
+export const subjectLabels: Record<subject, string> = {
+  [subject.MATH]: "Mathematics",
+  [subject.SCIENCE]: "Science",
+  [subject.HISTORY]: "History",
+  [subject.LANGUAGE]: "Language",
+  [subject.LITERATURE]: "Literature",
+  [subject.ART]: "Art",
+  [subject.BIOLOGY]: "Biology",
+  [subject.CHEMISTRY]: "Chemistry",
+  [subject.GEOGRAPHY]: "Geography",
+  [subject.COMPUTER_SCIENCE]: "Computer Science",
+  [subject.PHYSICS]: "Physics",
+  [subject.PSYCHOLOGY]: "Psychology",
+  [subject.OTHER]: "Other",
+};
 
 export const createKnowledgeBaseSchema = z.object({
   title: z.string().min(3, { message: "Title must be at least 3 characters" }),
@@ -50,3 +81,10 @@ export type UpdateKnowledgeBaseModel = z.infer<
   typeof updateKnowledgeBaseSchema
 >;
 
+export type KnowledgeBase = {
+  id: string;
+  title: string;
+  difficulty: difficulty;
+  levelOfDetail: levelOfDetail;
+  subject: subject;
+};

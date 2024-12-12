@@ -4,7 +4,6 @@ import { ActionResponse } from "@/types/base";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "@tanstack/react-router";
-import { z } from "vinxi";
 import { CreateKnowledgeBaseModel } from "@/types/knowledgeBase";
 
 export const createKnowledgeBase = (request: CreateKnowledgeBaseModel) =>

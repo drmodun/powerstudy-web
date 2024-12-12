@@ -6,7 +6,7 @@ import {
 import { routeTree } from "./routeTree.gen";
 import { routerWithQueryClient } from "@tanstack/react-router-with-query";
 import { QueryClient } from "@tanstack/react-query";
-import { Label } from "./components/ui/label";
+import NotFound from "./components/boundaries/notFoundComponent";
 
 export function createRouter() {
   const queryClient = new QueryClient();
@@ -17,11 +17,9 @@ export function createRouter() {
       context: { queryClient },
       defaultPreload: "intent",
       defaultErrorComponent: (error) => (
-        <ErrorComponent {...error}>
-          <Label>Something went wrong {error.error.message}</Label>
-        </ErrorComponent>
-      ), // TODO: add error page
-      defaultNotFoundComponent: () => <Label>Page not found</Label>,
+        <ErrorComponent error={error}></ErrorComponent>
+      ),
+      defaultNotFoundComponent: () => <NotFound />,
     }),
     queryClient
   );

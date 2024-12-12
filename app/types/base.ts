@@ -3,5 +3,5 @@ export type ActionResponse = {
 };
 
 export type LoginResponse = {
-  accessToken: string;
+  access_token: string;
 };

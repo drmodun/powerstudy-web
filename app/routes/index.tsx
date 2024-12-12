@@ -41,6 +41,7 @@ export default function Home() {
               <p className="text-gray-600">
                 Generate AI powered notes from your study materials
               </p>
+              <Link to="/knowledge-bases/create">Create</Link>
             </div>
             <div className="p-6 bg-white rounded-lg shadow-md">
               <h3 className="text-lg font-medium text-gray-900 mb-2">

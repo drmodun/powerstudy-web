@@ -18,7 +18,8 @@ export const useLoginUser = () => {
   return useMutation({
     mutationFn: loginUser,
     onSuccess: (data: AxiosResponse<LoginResponse>) => {
-      localStorage.setItem("access_token", data.data.accessToken);
+      console.log(data, data.data);
+      localStorage.setItem("access_token", data.data.access_token);
       toast.success("Redirecting to home page");
       setTimeout(() => {
         navigate({
