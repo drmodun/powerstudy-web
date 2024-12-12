@@ -1,7 +1,7 @@
 import axios from "axios";
-import { toast } from "react-hot-toast";
 
-export const baseApiUrl = process.env.BASE_API_URL || "http://localhost:5500";
+export const baseApiUrl =
+  import.meta.env.VITE_BASE_API_URL || "http://localhost:5500";
 
 export const baseApi = axios.create({
   baseURL: baseApiUrl,
@@ -35,12 +35,8 @@ baseFileApi.interceptors.request.use((config) => {
   return config;
 });
 
-baseApi.interceptors.response.use(
-  (response) => response.data,
-  (error) => {
-    toast.error(
-      error.response.data.message || error.message || "Something went wrong"
-    );
-    return Promise.reject(error);
-  }
-); // TODO: might remove later
+export interface ErrorResponse {
+  message: string;
+  error: string;
+  statusCode: number;
+}
