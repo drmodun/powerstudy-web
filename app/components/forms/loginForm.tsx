@@ -14,7 +14,7 @@ import { Button } from "../ui/button";
 import { useLoginUser } from "@/services/hooks/useLogin";
 
 export const LoginForm = () => {
-  const { mutateAsync: loginUser } = useLoginUser();
+  const { mutateAsync: loginUser, isPending } = useLoginUser();
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
@@ -52,13 +52,19 @@ export const LoginForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Password" {...field} />
+                <Input type="password" placeholder="Password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          disabled={isPending}
+          variant={isPending ? "ghost" : "default"}
+          type="submit"
+        >
+          Submit
+        </Button>
       </form>
     </Form>
   );

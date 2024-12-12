@@ -1,9 +1,10 @@
-import { LoginForm } from '@/components/forms/loginForm'
-import { createFileRoute, Link, useRouter } from '@tanstack/react-router'
+import { LoginForm } from "@/components/forms/loginForm";
+import { Button } from "@/components/ui/button";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/login')({
+export const Route = createFileRoute("/login")({
   component: Login,
-})
+});
 
 export default function Login() {
   return (
@@ -14,11 +15,14 @@ export default function Login() {
             Sign in to your account
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Or <Link href="/signup">create a new account</Link>
+            Don't have an account?
+            <Button variant={"link"}>
+              <Link href="/signup">Create one </Link>
+            </Button>
           </p>
         </div>
         <LoginForm />
       </div>
     </div>
-  )
+  );
 }

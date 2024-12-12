@@ -1970,6 +1970,11 @@
   dependencies:
     "@tanstack/query-core" "5.62.7"
 
+"@tanstack/react-router-with-query@^1.87.9":
+  version "1.87.9"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-router-with-query/-/react-router-with-query-1.87.9.tgz#d4d48cf1feb582551128d03078abf8cc708aba4e"
+  integrity sha512-aKkITwJNevLJjG/Jq590KrXbJ5JcRTQKQw5oJA1YUGXTWm4T1IqGJ85oQ8Lz14R2LM7HUrrwjzLW6QAqEsigyQ==
+
 "@tanstack/react-router@^1.86.1":
   version "1.86.1"
   resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.86.1.tgz#2bcf47b6bc7bd024a93bca875393e4feda61b6de"

@@ -2,7 +2,7 @@
 import {
   Outlet,
   ScrollRestoration,
-  createRootRoute,
+  createRootRouteWithContext,
 } from "@tanstack/react-router";
 import appCSS from "@/styles/globals.css?url";
 import { Meta, Scripts } from "@tanstack/start";
@@ -11,29 +11,31 @@ import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      {
-        charSet: "utf-8",
-      },
-      {
-        name: "viewport",
-        content: "width=device-width, initial-scale=1",
-      },
-      {
-        title: "TanStack Start Starter",
-      },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCSS,
-      },
-    ],
-  }),
-  component: RootComponent,
-});
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
+  {
+    head: () => ({
+      meta: [
+        {
+          charSet: "utf-8",
+        },
+        {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1",
+        },
+        {
+          title: "TanStack Start Starter",
+        },
+      ],
+      links: [
+        {
+          rel: "stylesheet",
+          href: appCSS,
+        },
+      ],
+    }),
+    component: RootComponent,
+  }
+);
 
 function RootComponent() {
   return (
@@ -45,8 +47,6 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
-  const queryClient = new QueryClient(); //TODO: check if this is needed / causes perfomance issues
-
   return (
     <html>
       <head>
@@ -54,9 +54,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </head>
       <body>
         <Toaster />
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>

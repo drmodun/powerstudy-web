@@ -4,7 +4,6 @@ import tsConfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   vite: {
-    keepProcessEnv: true,
     plugins: [
       tsConfigPaths({
         projects: ["./tsconfig.json"],

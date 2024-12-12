@@ -14,7 +14,7 @@ import { useCreateUser } from "@/services/hooks/useCreateUser";
 import { Button } from "../ui/button";
 
 export const UserForm = () => {
-  const { mutateAsync: createUser } = useCreateUser();
+  const { mutateAsync: createUser, isPending } = useCreateUser();
 
   const form = useForm({
     resolver: zodResolver(createUserSchema),
@@ -68,7 +68,7 @@ export const UserForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Password" {...field} />
+                <Input type="password" placeholder="Password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -82,13 +82,23 @@ export const UserForm = () => {
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
               <FormControl>
-                <Input placeholder="Confirm Password" {...field} />
+                <Input
+                  type="password"
+                  placeholder="Confirm Password"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button
+          variant={isPending ? "ghost" : "default"}
+          disabled={isPending}
+          type="submit"
+        >
+          Submit
+        </Button>
       </form>
     </Form>
   );

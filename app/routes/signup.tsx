@@ -1,4 +1,5 @@
 import { UserForm } from "@/components/forms/userForm";
+import { Button } from "@/components/ui/button";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/signup")({
@@ -14,7 +15,10 @@ export default function Signup() {
             Create your account
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Already have an account? <Link to="/login">Sign in</Link>
+            Already have an account?
+            <Button variant={"link"}>
+              <Link href="/login">Sign in </Link>
+            </Button>
           </p>
         </div>
         <UserForm />
