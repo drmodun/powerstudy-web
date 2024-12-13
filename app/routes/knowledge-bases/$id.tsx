@@ -15,20 +15,28 @@ import {
   levelOfDetailLabels,
   subjectLabels,
 } from "@/types/knowledgeBase";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/knowledge-bases/$id")({
   component: RouteComponent,
   loader: async ({ params, context }) => {
-    const data = await context.queryClient.fetchQuery(
-      knowledgeBaseQueryOptions(params.id)
+    const data = await context.queryClient.ensureQueryData(
+      knowledgeBaseQueryOptions(parseInt(params.id))
     );
     return data;
   },
 });
 
 function RouteComponent() {
-  const data = Route.useLoaderData();
+  const { id } = Route.useParams();
+  const { data, isError } = useSuspenseQuery(
+    knowledgeBaseQueryOptions(parseInt(id))
+  );
   const navigate = useNavigate();
+
+  if (isError || !data) {
+    return <div>Error fetching knowledge base</div>;
+  }
 
   return (
     <div className="container mx-auto py-8">

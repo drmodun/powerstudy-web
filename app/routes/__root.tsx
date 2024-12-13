@@ -9,7 +9,8 @@ import { Meta, Scripts } from "@tanstack/start";
 import type { ReactNode } from "react";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 import { Toaster } from "react-hot-toast";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
@@ -42,6 +43,7 @@ function RootComponent() {
     <RootDocument>
       <Outlet />
       <TanStackRouterDevtools />
+      <ReactQueryDevtools initialIsOpen={false} />
     </RootDocument>
   );
 }
