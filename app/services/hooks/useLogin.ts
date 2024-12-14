@@ -1,10 +1,10 @@
-import { baseApi, ErrorResponse } from "../baseApi";
+import { baseApi, ErrorResponse, setAuthToken } from "../baseApi";
 import { LoginModel } from "@/types/user";
 import { AxiosError, AxiosResponse } from "axios";
 import { ActionResponse, LoginResponse } from "@/types/base";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { redirect, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
 
 export const loginUser = (request: LoginModel) =>
   baseApi.post<LoginModel, AxiosResponse<LoginResponse>>(
@@ -18,8 +18,7 @@ export const useLoginUser = () => {
   return useMutation({
     mutationFn: loginUser,
     onSuccess: (data: AxiosResponse<LoginResponse>) => {
-      console.log(data, data.data);
-      localStorage.setItem("access_token", data.data.access_token);
+      setAuthToken(data.data.access_token);
       toast.success("Redirecting to home page");
       setTimeout(() => {
         navigate({

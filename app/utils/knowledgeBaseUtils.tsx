@@ -1,16 +1,17 @@
-import { KnowledgeBase } from "@/types/knowledgeBase";
+import { KnowledgeBase, KnowledgeBaseWithUser } from "@/types/knowledgeBase";
 import { queryOptions } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
-import { serverApi } from "./base";
+import { findOneSchema, serverApi } from "./base";
 import { createServerFn } from "@tanstack/start";
+import { baseApi } from "@/services/baseApi";
 
 export const fetchKnowledgeBase = createServerFn({ method: "GET" })
-  .validator((id: number) => +id)
-  .handler(async ({ data: id }) => {
-    console.log(id);
+  .validator((id: number) => findOneSchema.parse({ id }))
+  .handler(async ({ data }) => {
     try {
-      const response: AxiosResponse<KnowledgeBase> = await serverApi.get(
-        `/knowledge-bases/${id}`
+      console.log(data);
+      const response: AxiosResponse<KnowledgeBaseWithUser> = await baseApi.get(
+        `/knowledge-bases/with-user/${data.id}`
       );
       return response.data;
     } catch (error) {

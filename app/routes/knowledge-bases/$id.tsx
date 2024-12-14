@@ -1,5 +1,5 @@
 import { knowledgeBaseQueryOptions } from "@/utils/knowledgeBaseUtils";
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import {
   Card,
   CardContent,

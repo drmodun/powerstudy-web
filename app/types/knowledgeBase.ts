@@ -88,3 +88,10 @@ export type KnowledgeBase = {
   levelOfDetail: levelOfDetail;
   subject: subject;
 };
+
+export type KnowledgeBaseWithUser = KnowledgeBase & {
+  user: {
+    name: string;
+    email: string;
+  };
+};
