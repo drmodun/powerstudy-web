@@ -20,6 +20,8 @@ import { useNavigate } from "@tanstack/react-router";
 import { Edit, PlusCircle, Trash2 } from "lucide-react";
 import { useCheckEditPermissions } from "@/hooks/useCheckEditPermissions";
 import { Chip } from "../chip";
+import UserInfo from "../userInfo";
+import { Spinner } from "../spinner";
 
 export interface KnowledgeBaseCardProps {
   data: KnowledgeBaseWithUser;
@@ -48,34 +50,46 @@ export const KnowledgeBaseCard = ({ data }: KnowledgeBaseCardProps) => {
           />
         </CardDescription>
       </CardHeader>
-      <CardContent>{/* Add content here if needed */}</CardContent>
-      <CardFooter className="flex justify-end gap-4">
-        <Button
-          variant="outline"
-          onClick={() =>
-            navigate({ to: `/knowledge-bases/${data.id}/add-note` })
-          }
-        >
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Add Note
-        </Button>
-        <Button
-          variant="outline"
-          onClick={() => navigate({ to: `/knowledge-bases/${data.id}/edit` })}
-        >
-          <Edit className="mr-2 h-4 w-4" />
-          Edit
-        </Button>
-        <Button
-          variant="destructive"
-          onClick={() => {
-            // TODO: Implement delete functionality
-            console.log("Delete clicked");
-          }}
-        >
-          <Trash2 className="mr-2 h-4 w-4" />
-          Delete
-        </Button>
+      <CardContent>
+        <UserInfo user={data.user} />
+      </CardContent>
+      <CardFooter className="flex min-h-[5vw] justify-end gap-4">
+        {isLoading ? (
+          <Spinner size="md" />
+        ) : (
+          canEdit && (
+            <>
+              <Button
+                variant="outline"
+                onClick={() =>
+                  navigate({ to: `/knowledge-bases/${data.id}/add-note` })
+                }
+              >
+                <PlusCircle className="mr-2 h-4 w-4" />
+                Add Note
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() =>
+                  navigate({ to: `/knowledge-bases/${data.id}/edit` })
+                }
+              >
+                <Edit className="mr-2 h-4 w-4" />
+                Edit
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={() => {
+                  // TODO: Implement delete functionality
+                  console.log("Delete clicked");
+                }}
+              >
+                <Trash2 className="mr-2 h-4 w-4" />
+                Delete
+              </Button>
+            </>
+          )
+        )}
       </CardFooter>
     </Card>
   );

@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { User } from "./user";
+import { ChipVariant } from "@/components/chip/chip";
 
 export enum difficulty {
   ELEMENTARY = "elementary",
@@ -13,7 +15,7 @@ export const difficultyLabels: Record<difficulty, string> = {
   [difficulty.MIDDLE]: "Middle School",
   [difficulty.HIGH]: "High School",
   [difficulty.COLLEGE]: "College",
-  [difficulty.UNSPECIFIED]: "Unspecified",
+  [difficulty.UNSPECIFIED]: "Education Level Unspecified",
 };
 
 export enum levelOfDetail {
@@ -91,15 +93,8 @@ export type KnowledgeBase = {
 };
 
 export type KnowledgeBaseWithUser = KnowledgeBase & {
-  user: {
-    id: number;
-    name: string;
-    email: string;
-    profilePicture: string;
-  };
+  user: User;
 };
-
-export type ChipVariant = string;
 
 export const subjectColorRecord: Record<subject, ChipVariant> = {
   [subject.MATH]: "sapphire",
@@ -122,7 +117,7 @@ export const difficultyColorRecord: Record<difficulty, ChipVariant> = {
   [difficulty.MIDDLE]: "river",
   [difficulty.HIGH]: "mountain",
   [difficulty.COLLEGE]: "storm",
-  [difficulty.UNSPECIFIED]: "mist",
+  [difficulty.UNSPECIFIED]: "none",
 };
 
 export const levelOfDetailColorRecord: Record<levelOfDetail, ChipVariant> = {

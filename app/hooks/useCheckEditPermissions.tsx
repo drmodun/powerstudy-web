@@ -6,7 +6,7 @@ export interface CheckResult {
 }
 
 export const useCheckEditPermissions = (userId: number) => {
-  const { data, isLoading } = useAuth();
+  const { data, isPending: isLoading } = useAuth();
 
   if (!data) {
     return { canEdit: false, isLoading };
@@ -14,3 +14,4 @@ export const useCheckEditPermissions = (userId: number) => {
 
   return { canEdit: data.id === userId, isLoading };
 };
+    

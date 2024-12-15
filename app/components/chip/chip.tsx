@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-type ChipVariant =
+export type ChipVariant =
   | "sapphire"
   | "ocean"
   | "forest"
@@ -22,7 +22,8 @@ type ChipVariant =
   | "mist"
   | "dawn"
   | "dusk"
-  | "night";
+  | "night"
+  | "none";
 
 interface ChipProps {
   label: string;
@@ -53,6 +54,7 @@ const variantStyles: Record<ChipVariant, string> = {
   dawn: "bg-rose-300 text-black",
   dusk: "bg-purple-500 text-white",
   night: "bg-slate-800 text-white",
+  none: "display-none",
 };
 
 export const Chip: React.FC<ChipProps> = ({

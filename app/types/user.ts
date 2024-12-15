@@ -42,11 +42,5 @@ export type User = {
   password: string;
   createdAt: Date;
   updatedAt: Date;
-};
-
-export type Authored = {
-  id: string;
-  title: string;
-  createdAt: Date;
-  updatedAt: Date;
+  profilePicture: string;
 };
