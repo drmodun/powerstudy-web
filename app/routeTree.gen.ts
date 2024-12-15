@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as SignupImport } from './routes/signup'
 import { Route as LoginImport } from './routes/login'
+import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
 import { Route as KnowledgeBasesIndexImport } from './routes/knowledge-bases/index'
 import { Route as KnowledgeBasesCreateImport } from './routes/knowledge-bases/create'
@@ -29,6 +30,11 @@ const SignupRoute = SignupImport.update({
 const LoginRoute = LoginImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthedRoute = AuthedImport.update({
+  id: '/_authed',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -65,6 +71,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/_authed': {
+      id: '/_authed'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthedImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -109,6 +122,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '': typeof AuthedRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/knowledge-bases/$id': typeof KnowledgeBasesIdRoute
@@ -118,6 +132,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '': typeof AuthedRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/knowledge-bases/$id': typeof KnowledgeBasesIdRoute
@@ -128,6 +143,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/_authed': typeof AuthedRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/knowledge-bases/$id': typeof KnowledgeBasesIdRoute
@@ -139,6 +155,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | ''
     | '/login'
     | '/signup'
     | '/knowledge-bases/$id'
@@ -147,6 +164,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | ''
     | '/login'
     | '/signup'
     | '/knowledge-bases/$id'
@@ -155,6 +173,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authed'
     | '/login'
     | '/signup'
     | '/knowledge-bases/$id'
@@ -165,6 +184,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthedRoute: typeof AuthedRoute
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
   KnowledgeBasesIdRoute: typeof KnowledgeBasesIdRoute
@@ -174,6 +194,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthedRoute: AuthedRoute,
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
   KnowledgeBasesIdRoute: KnowledgeBasesIdRoute,
@@ -192,6 +213,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/_authed",
         "/login",
         "/signup",
         "/knowledge-bases/$id",
@@ -201,6 +223,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/_authed": {
+      "filePath": "_authed.tsx"
     },
     "/login": {
       "filePath": "login.tsx"

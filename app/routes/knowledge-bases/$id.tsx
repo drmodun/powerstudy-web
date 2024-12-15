@@ -16,6 +16,7 @@ import {
   subjectLabels,
 } from "@/types/knowledgeBase";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { useAuth } from "@/services/hooks/useAuth";
 
 export const Route = createFileRoute("/knowledge-bases/$id")({
   component: RouteComponent,
@@ -29,9 +30,11 @@ export const Route = createFileRoute("/knowledge-bases/$id")({
 
 function RouteComponent() {
   const { id } = Route.useParams();
-  const { data, isError } = useSuspenseQuery(
-    knowledgeBaseQueryOptions(parseInt(id))
-  );
+  const initial = Route.useLoaderData();
+  const { data, isError } = useSuspenseQuery({
+    ...knowledgeBaseQueryOptions(parseInt(id)),
+    initialData: initial,
+  });
   const navigate = useNavigate();
 
   if (isError || !data) {

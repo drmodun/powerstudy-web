@@ -16,6 +16,7 @@ export const fetchKnowledgeBase = createServerFn({ method: "GET" })
       return response.data;
     } catch (error) {
       console.error("Error fetching knowledge base:", error);
+      throw error; // Re-throw the error to properly handle it in the query
     }
   });
 

@@ -10,11 +10,10 @@ const COOKIE_OPTIONS = {
   sameSite: "strict" as const,
 };
 
-// Auth token management
 export const AUTH_TOKEN_KEY = "auth_token";
 
 export interface JWTPayload {
-  sub: string; // user id
+  sub: string;
   email: string;
   exp: number;
   iat: number;

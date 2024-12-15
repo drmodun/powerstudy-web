@@ -87,11 +87,46 @@ export type KnowledgeBase = {
   difficulty: difficulty;
   levelOfDetail: levelOfDetail;
   subject: subject;
+  userId: number;
 };
 
 export type KnowledgeBaseWithUser = KnowledgeBase & {
   user: {
+    id: number;
     name: string;
     email: string;
+    profilePicture: string;
   };
+};
+
+export type ChipVariant = string;
+
+export const subjectColorRecord: Record<subject, ChipVariant> = {
+  [subject.MATH]: "sapphire",
+  [subject.SCIENCE]: "ocean",
+  [subject.HISTORY]: "forest",
+  [subject.LANGUAGE]: "sunset",
+  [subject.LITERATURE]: "autumn",
+  [subject.ART]: "lavender",
+  [subject.BIOLOGY]: "mint",
+  [subject.CHEMISTRY]: "coral",
+  [subject.GEOGRAPHY]: "sky",
+  [subject.COMPUTER_SCIENCE]: "neon",
+  [subject.PHYSICS]: "royal",
+  [subject.PSYCHOLOGY]: "sage",
+  [subject.OTHER]: "neutral",
+};
+
+export const difficultyColorRecord: Record<difficulty, ChipVariant> = {
+  [difficulty.ELEMENTARY]: "breeze",
+  [difficulty.MIDDLE]: "river",
+  [difficulty.HIGH]: "mountain",
+  [difficulty.COLLEGE]: "storm",
+  [difficulty.UNSPECIFIED]: "mist",
+};
+
+export const levelOfDetailColorRecord: Record<levelOfDetail, ChipVariant> = {
+  [levelOfDetail.LOW]: "dawn",
+  [levelOfDetail.MEDIUM]: "dusk",
+  [levelOfDetail.HIGH]: "night",
 };

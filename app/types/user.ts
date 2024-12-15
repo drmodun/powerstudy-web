@@ -36,10 +36,17 @@ export type UpdateUserModel = z.infer<typeof updateSchema>;
 export type LoginModel = z.infer<typeof loginSchema>;
 
 export type User = {
-  id: string;
+  id: number;
   email: string;
   name: string;
   password: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type Authored = {
+  id: string;
+  title: string;
   createdAt: Date;
   updatedAt: Date;
 };

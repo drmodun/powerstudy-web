@@ -2,9 +2,11 @@ import { baseApi, ErrorResponse, setAuthToken } from "../baseApi";
 import { LoginModel } from "@/types/user";
 import { AxiosError, AxiosResponse } from "axios";
 import { ActionResponse, LoginResponse } from "@/types/base";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { useNavigate } from "@tanstack/react-router";
+import { getRouterContext, useNavigate } from "@tanstack/react-router";
+import { useAuth } from "./useAuth";
+import { getContext, setCookie } from "vinxi/http";
 
 export const loginUser = (request: LoginModel) =>
   baseApi.post<LoginModel, AxiosResponse<LoginResponse>>(
@@ -14,11 +16,14 @@ export const loginUser = (request: LoginModel) =>
 
 export const useLoginUser = () => {
   const navigate = useNavigate();
+  const auth = useAuth();
 
   return useMutation({
     mutationFn: loginUser,
-    onSuccess: (data: AxiosResponse<LoginResponse>) => {
-      setAuthToken(data.data.access_token);
+    onSuccess: async ({ data }: AxiosResponse<LoginResponse>) => {
+      setAuthToken(data.access_token);
+
+      await auth.refetch();
       toast.success("Redirecting to home page");
       setTimeout(() => {
         navigate({
