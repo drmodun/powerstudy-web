@@ -2,6 +2,7 @@ import { knowledgeBaseQueryOptions } from "@/utils/knowledgeBaseUtils";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import KnowledgeBaseCard from "@/components/knowledgeBaseCard";
+import NotFound from "@/components/boundaries/notFoundComponent";
 
 export const Route = createFileRoute("/knowledge-bases/$id")({
   component: RouteComponent,
@@ -23,7 +24,7 @@ function RouteComponent() {
   });
 
   if (isError || !data) {
-    return <div>Error fetching knowledge base</div>;
+    return <NotFound />;
   }
 
   return (
