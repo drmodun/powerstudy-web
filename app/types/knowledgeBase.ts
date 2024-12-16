@@ -84,7 +84,7 @@ export type UpdateKnowledgeBaseModel = z.infer<
 >;
 
 export type KnowledgeBase = {
-  id: string;
+  id: number;
   title: string;
   difficulty: difficulty;
   levelOfDetail: levelOfDetail;

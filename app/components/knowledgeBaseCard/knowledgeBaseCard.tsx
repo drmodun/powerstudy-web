@@ -22,6 +22,14 @@ import { useCheckEditPermissions } from "@/hooks/useCheckEditPermissions";
 import { Chip } from "../chip";
 import UserInfo from "../userInfo";
 import { Spinner } from "../spinner";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogHeader,
+  DialogTrigger,
+} from "../ui/dialog";
+import { NoteForm } from "../forms/noteForm";
 
 export interface KnowledgeBaseCardProps {
   data: KnowledgeBaseWithUser;
@@ -59,15 +67,20 @@ export const KnowledgeBaseCard = ({ data }: KnowledgeBaseCardProps) => {
         ) : (
           canEdit && (
             <>
-              <Button
-                variant="outline"
-                onClick={() =>
-                  navigate({ to: `/knowledge-bases/${data.id}/add-note` })
-                }
-              >
-                <PlusCircle className="mr-2 h-4 w-4" />
-                Add Note
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline">
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    Add Note
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Adddd new note</DialogTitle>
+                  </DialogHeader>
+                  <NoteForm knowledgeBaseId={data.id} />
+                </DialogContent>
+              </Dialog>
               <Button
                 variant="outline"
                 onClick={() =>

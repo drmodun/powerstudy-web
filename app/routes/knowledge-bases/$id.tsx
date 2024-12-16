@@ -30,10 +30,10 @@ function RouteComponent() {
 
   const {
     data: notes,
-    isPending,
     fetchNextPage,
     isFetchingNextPage,
     hasNextPage,
+    isPending,
   } = useNotes({
     knowledgeBaseId: parseInt(id),
     limit: 8,
@@ -62,7 +62,7 @@ function RouteComponent() {
         <Spinner size="md" />
       ) : hasNextPage ? (
         <Button onClick={() => fetchNextPage()}>Load More</Button>
-      ) : (
+      ) : isPending ? null : (
         <Label>End of notes</Label>
       )}
     </div>
