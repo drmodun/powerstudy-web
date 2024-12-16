@@ -1,26 +1,47 @@
-import { Form, useForm } from "react-hook-form";
-import { FormField } from "../ui/form";
+import { useForm } from "react-hook-form";
+import { Form, FormField } from "../ui/form";
 import { useUploadNotes } from "@/services/hooks/useUploadNotes";
 import { Button } from "../ui/button";
 import { FileInput } from "../ui/file-input";
+import { useUploadImages } from "@/services/hooks/useUploadImage";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 export interface NoteFormProps {
   knowledgeBaseId: number;
 }
 
 export const NoteForm = ({ knowledgeBaseId }: NoteFormProps) => {
-  const { mutateAsync: uploadNotes, isPaused } =
+  const { mutateAsync: uploadNotes, isPending: isGettingNotes } =
     useUploadNotes(knowledgeBaseId);
 
+  const { mutateAsync: uploadImages, isPending: isUploadingImages } =
+    useUploadImages();
+
   const form = useForm({
+    resolver: zodResolver(
+      z.object({
+        files: z.array(z.instanceof(File)),
+      })
+    ),
     defaultValues: {
       files: [],
     },
   });
 
   const onSubmit = async (data: { files: File[] }) => {
+    if (data.files.length <= 0) {
+      return;
+    }
+
+    if (isGettingNotes || isUploadingImages) {
+      return;
+    }
+
+    const images = await uploadImages(data.files);
+
     await uploadNotes({
-      data: data.files,
+      data: images,
     });
   };
 
@@ -32,7 +53,7 @@ export const NoteForm = ({ knowledgeBaseId }: NoteFormProps) => {
           name="files"
           render={({ field }) => <FileInput preview {...field} />}
         />
-        <Button disabled={isPaused} type="button">
+        <Button disabled={isGettingNotes || isUploadingImages} type="submit">
           Submit
         </Button>
       </form>
