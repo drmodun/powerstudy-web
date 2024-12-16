@@ -3,6 +3,11 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import KnowledgeBaseCard from "@/components/knowledgeBaseCard";
 import NotFound from "@/components/boundaries/notFoundComponent";
+import { useNotes } from "@/services/hooks/useNotes";
+import { Spinner } from "@/components/spinner";
+import NoteCard from "@/components/noteCard";
+import { Button } from "@/components/ui/button";
+import { Label } from "@radix-ui/react-label";
 
 export const Route = createFileRoute("/knowledge-bases/$id")({
   component: RouteComponent,
@@ -23,6 +28,17 @@ function RouteComponent() {
     initialData: initial,
   });
 
+  const {
+    data: notes,
+    isPending,
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+  } = useNotes({
+    knowledgeBaseId: parseInt(id),
+    limit: 8,
+  });
+
   if (isError || !data) {
     return <NotFound />;
   }
@@ -30,6 +46,25 @@ function RouteComponent() {
   return (
     <div className="container mx-auto py-8">
       <KnowledgeBaseCard data={data} />
+      {isPending ? (
+        <Spinner size="md" />
+      ) : (
+        notes?.pages.map((page) => (
+          <>
+            {page.map((note) => (
+              <NoteCard data={note} userId={data.userId} />
+            ))}
+          </>
+        ))
+      )}
+
+      {isFetchingNextPage ? (
+        <Spinner size="md" />
+      ) : hasNextPage ? (
+        <Button onClick={() => fetchNextPage()}>Load More</Button>
+      ) : (
+        <Label>End of notes</Label>
+      )}
     </div>
   );
 }
