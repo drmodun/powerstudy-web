@@ -1,5 +1,5 @@
 export type ActionResponse = {
-  id: string;
+  id: number;
 };
 
 export type LoginResponse = {

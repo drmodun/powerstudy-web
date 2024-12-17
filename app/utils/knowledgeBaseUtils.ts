@@ -1,4 +1,4 @@
-import { KnowledgeBase, KnowledgeBaseWithUser } from "@/types/knowledgeBase";
+import { KnowledgeBaseWithUser } from "@/types/knowledgeBase";
 import { queryOptions } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import { findOneSchema, serverApi } from "./base";

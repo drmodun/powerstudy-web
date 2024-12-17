@@ -1,4 +1,5 @@
 // app/routes/index.tsx
+import MathProblemInfo from "@/components/mathProblemInfo";
 import { useAuth } from "@/services/hooks/useAuth";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
@@ -50,15 +51,7 @@ export default function Home() {
               </p>
               <Link to="/knowledge-bases/create">Create</Link>
             </div>
-            <div className="p-6 bg-white rounded-lg shadow-md">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Solve complex math problems
-              </h3>
-              <p className="text-gray-600">
-                Get automated solutions to complex math problems with step by
-                step explanation
-              </p>
-            </div>
+            <MathProblemInfo />
             <div className="p-6 bg-white rounded-lg shadow-md">
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 Get an answer to any question

@@ -16,6 +16,7 @@ import { Route as LoginImport } from './routes/login'
 import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
 import { Route as KnowledgeBasesIndexImport } from './routes/knowledge-bases/index'
+import { Route as MathProblemsIdImport } from './routes/math-problems/$id'
 import { Route as KnowledgeBasesCreateImport } from './routes/knowledge-bases/create'
 import { Route as KnowledgeBasesIdImport } from './routes/knowledge-bases/$id'
 
@@ -47,6 +48,12 @@ const IndexRoute = IndexImport.update({
 const KnowledgeBasesIndexRoute = KnowledgeBasesIndexImport.update({
   id: '/knowledge-bases/',
   path: '/knowledge-bases/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MathProblemsIdRoute = MathProblemsIdImport.update({
+  id: '/math-problems/$id',
+  path: '/math-problems/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -108,6 +115,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KnowledgeBasesCreateImport
       parentRoute: typeof rootRoute
     }
+    '/math-problems/$id': {
+      id: '/math-problems/$id'
+      path: '/math-problems/$id'
+      fullPath: '/math-problems/$id'
+      preLoaderRoute: typeof MathProblemsIdImport
+      parentRoute: typeof rootRoute
+    }
     '/knowledge-bases/': {
       id: '/knowledge-bases/'
       path: '/knowledge-bases'
@@ -127,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/knowledge-bases/$id': typeof KnowledgeBasesIdRoute
   '/knowledge-bases/create': typeof KnowledgeBasesCreateRoute
+  '/math-problems/$id': typeof MathProblemsIdRoute
   '/knowledge-bases': typeof KnowledgeBasesIndexRoute
 }
 
@@ -137,6 +152,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/knowledge-bases/$id': typeof KnowledgeBasesIdRoute
   '/knowledge-bases/create': typeof KnowledgeBasesCreateRoute
+  '/math-problems/$id': typeof MathProblemsIdRoute
   '/knowledge-bases': typeof KnowledgeBasesIndexRoute
 }
 
@@ -148,6 +164,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/knowledge-bases/$id': typeof KnowledgeBasesIdRoute
   '/knowledge-bases/create': typeof KnowledgeBasesCreateRoute
+  '/math-problems/$id': typeof MathProblemsIdRoute
   '/knowledge-bases/': typeof KnowledgeBasesIndexRoute
 }
 
@@ -160,6 +177,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/knowledge-bases/$id'
     | '/knowledge-bases/create'
+    | '/math-problems/$id'
     | '/knowledge-bases'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -169,6 +187,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/knowledge-bases/$id'
     | '/knowledge-bases/create'
+    | '/math-problems/$id'
     | '/knowledge-bases'
   id:
     | '__root__'
@@ -178,6 +197,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/knowledge-bases/$id'
     | '/knowledge-bases/create'
+    | '/math-problems/$id'
     | '/knowledge-bases/'
   fileRoutesById: FileRoutesById
 }
@@ -189,6 +209,7 @@ export interface RootRouteChildren {
   SignupRoute: typeof SignupRoute
   KnowledgeBasesIdRoute: typeof KnowledgeBasesIdRoute
   KnowledgeBasesCreateRoute: typeof KnowledgeBasesCreateRoute
+  MathProblemsIdRoute: typeof MathProblemsIdRoute
   KnowledgeBasesIndexRoute: typeof KnowledgeBasesIndexRoute
 }
 
@@ -199,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   SignupRoute: SignupRoute,
   KnowledgeBasesIdRoute: KnowledgeBasesIdRoute,
   KnowledgeBasesCreateRoute: KnowledgeBasesCreateRoute,
+  MathProblemsIdRoute: MathProblemsIdRoute,
   KnowledgeBasesIndexRoute: KnowledgeBasesIndexRoute,
 }
 
@@ -218,6 +240,7 @@ export const routeTree = rootRoute
         "/signup",
         "/knowledge-bases/$id",
         "/knowledge-bases/create",
+        "/math-problems/$id",
         "/knowledge-bases/"
       ]
     },
@@ -238,6 +261,9 @@ export const routeTree = rootRoute
     },
     "/knowledge-bases/create": {
       "filePath": "knowledge-bases/create.tsx"
+    },
+    "/math-problems/$id": {
+      "filePath": "math-problems/$id.tsx"
     },
     "/knowledge-bases/": {
       "filePath": "knowledge-bases/index.tsx"
