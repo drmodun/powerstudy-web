@@ -15,7 +15,10 @@ import { Route as SignupImport } from './routes/signup'
 import { Route as LoginImport } from './routes/login'
 import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
+import { Route as QuestionAnswersIndexImport } from './routes/question-answers/index'
+import { Route as MathProblemsIndexImport } from './routes/math-problems/index'
 import { Route as KnowledgeBasesIndexImport } from './routes/knowledge-bases/index'
+import { Route as QuestionAnswersIdImport } from './routes/question-answers/$id'
 import { Route as MathProblemsIdImport } from './routes/math-problems/$id'
 import { Route as KnowledgeBasesCreateImport } from './routes/knowledge-bases/create'
 import { Route as KnowledgeBasesIdImport } from './routes/knowledge-bases/$id'
@@ -45,9 +48,27 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const QuestionAnswersIndexRoute = QuestionAnswersIndexImport.update({
+  id: '/question-answers/',
+  path: '/question-answers/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MathProblemsIndexRoute = MathProblemsIndexImport.update({
+  id: '/math-problems/',
+  path: '/math-problems/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const KnowledgeBasesIndexRoute = KnowledgeBasesIndexImport.update({
   id: '/knowledge-bases/',
   path: '/knowledge-bases/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const QuestionAnswersIdRoute = QuestionAnswersIdImport.update({
+  id: '/question-answers/$id',
+  path: '/question-answers/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -122,11 +143,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MathProblemsIdImport
       parentRoute: typeof rootRoute
     }
+    '/question-answers/$id': {
+      id: '/question-answers/$id'
+      path: '/question-answers/$id'
+      fullPath: '/question-answers/$id'
+      preLoaderRoute: typeof QuestionAnswersIdImport
+      parentRoute: typeof rootRoute
+    }
     '/knowledge-bases/': {
       id: '/knowledge-bases/'
       path: '/knowledge-bases'
       fullPath: '/knowledge-bases'
       preLoaderRoute: typeof KnowledgeBasesIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/math-problems/': {
+      id: '/math-problems/'
+      path: '/math-problems'
+      fullPath: '/math-problems'
+      preLoaderRoute: typeof MathProblemsIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/question-answers/': {
+      id: '/question-answers/'
+      path: '/question-answers'
+      fullPath: '/question-answers'
+      preLoaderRoute: typeof QuestionAnswersIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -142,7 +184,10 @@ export interface FileRoutesByFullPath {
   '/knowledge-bases/$id': typeof KnowledgeBasesIdRoute
   '/knowledge-bases/create': typeof KnowledgeBasesCreateRoute
   '/math-problems/$id': typeof MathProblemsIdRoute
+  '/question-answers/$id': typeof QuestionAnswersIdRoute
   '/knowledge-bases': typeof KnowledgeBasesIndexRoute
+  '/math-problems': typeof MathProblemsIndexRoute
+  '/question-answers': typeof QuestionAnswersIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -153,7 +198,10 @@ export interface FileRoutesByTo {
   '/knowledge-bases/$id': typeof KnowledgeBasesIdRoute
   '/knowledge-bases/create': typeof KnowledgeBasesCreateRoute
   '/math-problems/$id': typeof MathProblemsIdRoute
+  '/question-answers/$id': typeof QuestionAnswersIdRoute
   '/knowledge-bases': typeof KnowledgeBasesIndexRoute
+  '/math-problems': typeof MathProblemsIndexRoute
+  '/question-answers': typeof QuestionAnswersIndexRoute
 }
 
 export interface FileRoutesById {
@@ -165,7 +213,10 @@ export interface FileRoutesById {
   '/knowledge-bases/$id': typeof KnowledgeBasesIdRoute
   '/knowledge-bases/create': typeof KnowledgeBasesCreateRoute
   '/math-problems/$id': typeof MathProblemsIdRoute
+  '/question-answers/$id': typeof QuestionAnswersIdRoute
   '/knowledge-bases/': typeof KnowledgeBasesIndexRoute
+  '/math-problems/': typeof MathProblemsIndexRoute
+  '/question-answers/': typeof QuestionAnswersIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -178,7 +229,10 @@ export interface FileRouteTypes {
     | '/knowledge-bases/$id'
     | '/knowledge-bases/create'
     | '/math-problems/$id'
+    | '/question-answers/$id'
     | '/knowledge-bases'
+    | '/math-problems'
+    | '/question-answers'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -188,7 +242,10 @@ export interface FileRouteTypes {
     | '/knowledge-bases/$id'
     | '/knowledge-bases/create'
     | '/math-problems/$id'
+    | '/question-answers/$id'
     | '/knowledge-bases'
+    | '/math-problems'
+    | '/question-answers'
   id:
     | '__root__'
     | '/'
@@ -198,7 +255,10 @@ export interface FileRouteTypes {
     | '/knowledge-bases/$id'
     | '/knowledge-bases/create'
     | '/math-problems/$id'
+    | '/question-answers/$id'
     | '/knowledge-bases/'
+    | '/math-problems/'
+    | '/question-answers/'
   fileRoutesById: FileRoutesById
 }
 
@@ -210,7 +270,10 @@ export interface RootRouteChildren {
   KnowledgeBasesIdRoute: typeof KnowledgeBasesIdRoute
   KnowledgeBasesCreateRoute: typeof KnowledgeBasesCreateRoute
   MathProblemsIdRoute: typeof MathProblemsIdRoute
+  QuestionAnswersIdRoute: typeof QuestionAnswersIdRoute
   KnowledgeBasesIndexRoute: typeof KnowledgeBasesIndexRoute
+  MathProblemsIndexRoute: typeof MathProblemsIndexRoute
+  QuestionAnswersIndexRoute: typeof QuestionAnswersIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -221,7 +284,10 @@ const rootRouteChildren: RootRouteChildren = {
   KnowledgeBasesIdRoute: KnowledgeBasesIdRoute,
   KnowledgeBasesCreateRoute: KnowledgeBasesCreateRoute,
   MathProblemsIdRoute: MathProblemsIdRoute,
+  QuestionAnswersIdRoute: QuestionAnswersIdRoute,
   KnowledgeBasesIndexRoute: KnowledgeBasesIndexRoute,
+  MathProblemsIndexRoute: MathProblemsIndexRoute,
+  QuestionAnswersIndexRoute: QuestionAnswersIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -241,7 +307,10 @@ export const routeTree = rootRoute
         "/knowledge-bases/$id",
         "/knowledge-bases/create",
         "/math-problems/$id",
-        "/knowledge-bases/"
+        "/question-answers/$id",
+        "/knowledge-bases/",
+        "/math-problems/",
+        "/question-answers/"
       ]
     },
     "/": {
@@ -265,8 +334,17 @@ export const routeTree = rootRoute
     "/math-problems/$id": {
       "filePath": "math-problems/$id.tsx"
     },
+    "/question-answers/$id": {
+      "filePath": "question-answers/$id.tsx"
+    },
     "/knowledge-bases/": {
       "filePath": "knowledge-bases/index.tsx"
+    },
+    "/math-problems/": {
+      "filePath": "math-problems/index.tsx"
+    },
+    "/question-answers/": {
+      "filePath": "question-answers/index.tsx"
     }
   }
 }

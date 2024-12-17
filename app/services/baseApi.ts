@@ -33,7 +33,7 @@ export const removeAuthToken = () => {
 
 export const baseApi = axios.create({
   baseURL: baseApiUrl,
-  timeout: 100000,
+  timeout: 1000 * 60, // TODO: fix this with streaming
   headers: {
     "Content-Type": "application/json",
   },
@@ -41,7 +41,7 @@ export const baseApi = axios.create({
 
 export const baseFileApi = axios.create({
   baseURL: baseApiUrl,
-  timeout: 10000,
+  timeout: 1000 * 60,
   headers: {
     "Content-Type": "multipart/form-data",
   },

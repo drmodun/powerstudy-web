@@ -1,5 +1,8 @@
 // app/routes/index.tsx
-import MathProblemInfo from "@/components/mathProblemInfo";
+import { KnowledgeBaseForm } from "@/components/forms/knowledgeBaseForm";
+import { MathProblemForm } from "@/components/forms/mathProblemForm";
+import { QuestionAnswerForm } from "@/components/forms/questionAnswerForm";
+import InfoCard from "@/components/infoCard";
 import { useAuth } from "@/services/hooks/useAuth";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
@@ -42,24 +45,32 @@ export default function Home() {
           )}
 
           <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl">
-            <div className="p-6 bg-white rounded-lg shadow-md">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Generate notes
-              </h3>
-              <p className="text-gray-600">
-                Generate AI powered notes from your study materials
-              </p>
-              <Link to="/knowledge-bases/create">Create</Link>
-            </div>
-            <MathProblemInfo />
-            <div className="p-6 bg-white rounded-lg shadow-md">
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                Get an answer to any question
-              </h3>
-              <p className="text-gray-600">
-                Get an answer to any question with a click of a button
-              </p>
-            </div>
+            <InfoCard
+              title="Create Knowledge Base"
+              description="Organize your study materials and notes in one place"
+              buttonText="Create Knowledge Base"
+              dialogTitle="Create Knowledge Base"
+            >
+              <KnowledgeBaseForm />
+            </InfoCard>
+
+            <InfoCard
+              title="Solve complex math problems"
+              description="Get automated solutions to complex math problems with step by step explanation"
+              buttonText="Solve a Problem"
+              dialogTitle="Upload Math Problem"
+            >
+              <MathProblemForm />
+            </InfoCard>
+
+            <InfoCard
+              title="Get an answer to any question"
+              description="Ask any question and get a detailed answer powered by AI"
+              buttonText="Ask a Question"
+              dialogTitle="Ask a Question"
+            >
+              <QuestionAnswerForm />
+            </InfoCard>
           </div>
         </div>
       </div>
